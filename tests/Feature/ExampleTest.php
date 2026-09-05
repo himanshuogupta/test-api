@@ -16,6 +16,12 @@ class ExampleTest extends TestCase
     {
         $response = $this->get('/');
 
-        $response->assertStatus(200);
+        $response->assertStatus(200)
+            ->assertSee('API Tester')
+            ->assertSee('/api/test')
+            ->assertSee('/api/echo')
+            ->assertSee('/api/ping')
+            ->assertSee('GET', false)
+            ->assertSee('POST', false);
     }
 }
