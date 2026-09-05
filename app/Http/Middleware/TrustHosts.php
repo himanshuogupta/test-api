@@ -14,8 +14,8 @@ class TrustHosts extends Middleware
     public function hosts()
     {
         return [
-            // $this->allSubdomainsOfApplicationUrl(),
-            'api.yogeshdairy.com',
+            $this->allSubdomainsOfApplicationUrl(),
+            // 'api.yogeshdairy.com',
         ];
     }
 }
