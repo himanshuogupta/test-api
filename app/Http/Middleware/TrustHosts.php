@@ -6,16 +6,20 @@ use Illuminate\Http\Middleware\TrustHosts as Middleware;
 
 class TrustHosts extends Middleware
 {
-    /**
-     * Get the host patterns that should be trusted.
-     *
-     * @return array<int, string|null>
-     */
     public function hosts()
     {
         return [
-            // $this->allSubdomainsOfApplicationUrl(),
             '^api\.yogeshdairy\.com$',
         ];
+    }
+
+    public function handle($request, \Closure $next)
+    {
+        \Log::info('Host Header Test', [
+            'host' => $request->getHost(),
+            'http_host' => $request->header('Host'),
+        ]);
+
+        return parent::handle($request, $next);
     }
 }
