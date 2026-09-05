@@ -15,7 +15,7 @@ class TrustHosts extends Middleware
     {
         return [
             // $this->allSubdomainsOfApplicationUrl(),
-            'api.yogeshdairy.com',
+            '^api\.yogeshdairy\.com$',
         ];
     }
 }
