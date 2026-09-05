@@ -22,3 +22,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('/test', [TestController::class, 'index']);
 Route::post('/test', [TestController::class, 'store']);
 
+Route::get('/echo', [TestController::class, 'echoGet']);
+Route::post('/echo', [TestController::class, 'echoPost']);
+
+Route::get('/ping', [TestController::class, 'pingGet']);
+Route::post('/ping', [TestController::class, 'pingPost']);
+
+

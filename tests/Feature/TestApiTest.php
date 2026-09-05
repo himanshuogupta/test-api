@@ -44,4 +44,59 @@ class TestApiTest extends TestCase
         $response->assertUnprocessable()
             ->assertJsonValidationErrors(['name']);
     }
+
+    public function test_get_echo_endpoint_returns_success(): void
+    {
+        $response = $this->getJson('/api/echo?q=hello');
+
+        $response->assertOk()
+            ->assertJson([
+                'message' => 'GET echo endpoint is working',
+                'method' => 'GET',
+                'query' => ['q' => 'hello'],
+            ]);
+    }
+
+    public function test_post_echo_endpoint_returns_created(): void
+    {
+        $response = $this->postJson('/api/echo', [
+            'value' => 'repeat this',
+        ]);
+
+        $response->assertCreated()
+            ->assertJson([
+                'message' => 'POST echo endpoint is working',
+                'method' => 'POST',
+                'echo' => 'repeat this',
+            ]);
+    }
+
+    public function test_get_ping_endpoint_returns_success(): void
+    {
+        $response = $this->getJson('/api/ping');
+
+        $response->assertOk()
+            ->assertJson([
+                'message' => 'GET ping endpoint is working',
+                'method' => 'GET',
+                'pong' => true,
+            ]);
+    }
+
+    public function test_post_ping_endpoint_returns_created(): void
+    {
+        $payload = [
+            'id' => 42,
+            'note' => 'check ping',
+        ];
+
+        $response = $this->postJson('/api/ping', $payload);
+
+        $response->assertCreated()
+            ->assertJson([
+                'message' => 'POST ping endpoint is working',
+                'method' => 'POST',
+                'data' => $payload,
+            ]);
+    }
 }
