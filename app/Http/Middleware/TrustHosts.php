@@ -2,10 +2,17 @@
 
 namespace App\Http\Middleware;
 
+use Closure;
+use Illuminate\Http\Request;
 use Illuminate\Http\Middleware\TrustHosts as Middleware;
 
 class TrustHosts extends Middleware
 {
+    /**
+     * Get the host patterns that should be trusted.
+     *
+     * @return array
+     */
     public function hosts()
     {
         return [
@@ -13,11 +20,10 @@ class TrustHosts extends Middleware
         ];
     }
 
-    public function handle($request, \Closure $next)
+    public function handle(Request $request, $next)
     {
         \Log::info('Host Header Test', [
-            'host' => $request->getHost(),
-            'http_host' => $request->header('Host'),
+            'host_header' => $request->headers->get('host'),
         ]);
 
         return parent::handle($request, $next);
